@@ -68,13 +68,13 @@ callbackFunction:関数(衝突後に一度だけ呼び出される)
 //以下サンプルスクリプト
 
 const obj1 = create(10,10,10,10);
-const obj2 = create(10,10,50,10);
-obj1.rotate = 90;
+// const obj2 = create(10,10,50,10);
+obj1.rotate = 10;
 
 //ぶつかったらobj1を消す
-obj1.onCollisionEnter(obj2,()=>{
-    // obj1.indicate = false;
-});
+// obj1.onCollisionEnter(obj2,()=>{
+//     // obj1.indicate = false;
+// });
 
 //obj1を１秒ごとにxに方向に10だけ移動させる
 // setInterval(()=>{

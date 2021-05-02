@@ -34,7 +34,8 @@ const Setting = {
 
 
 class GameObject{//public?
-    constructor(w, h, x, y){
+    constructor(url, w, h, x, y){
+        this.url = url;
         this.width = w;
         this.height = h;
         this.x = x;
@@ -59,10 +60,19 @@ class GameObject{//public?
             // Setting.ctx.fillRect(this.x, this.y, -(this.width), -(this.height));//四角を描く
             // Setting.ctx.restore();// コンテキストを元に戻す
 
-            Setting.ctx.translate( Setting.canvas.width/2, Setting.canvas.height/2 ) ;
-            Setting.ctx.rotate( 50 * Math.PI / 180 ) ;
-            Setting.ctx.translate( -Setting.canvas.width/2, -Setting.canvas.height/2 ) ;
+            // Setting.ctx.translate( Setting.canvas.width/2, Setting.canvas.height/2 ) ;
+            // Setting.ctx.rotate( this.rotate * Math.PI / 180 ) ;
+            // Setting.ctx.translate( -Setting.canvas.width/2, -Setting.canvas.height/2 ) ;
+            // Setting.ctx.translate(-(this.width/2), -(this.height/2));
             Setting.ctx.fillRect(this.x, this.y, this.width, this.height);//四角を描く
+            // Setting.ctx.restore();
+
+
+            const img = new Image();
+            img.src=this.url;
+            img.onload = ()=>{
+                Setting.ctx.drawImage(img, this.x, this.y, this.width, this.height);  // ★ここを変更★
+            };
         }
     }
 
@@ -250,8 +260,8 @@ class GameObject{//public?
 
 
 
-function create(w,h,x,y){//public
-    const obj = new GameObject(w,h,x,y);
+function create(url,w,h,x,y){//public
+    const obj = new GameObject(url,w,h,x,y);
     Setting.GameObjects.push(obj);
     return obj;
 }
