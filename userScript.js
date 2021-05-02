@@ -11,7 +11,7 @@ Setting.canvas.width = 値;
 Setting.canvas.height = 値;
 
 【ゲームオブジェクトを作る】
-create(w,h,x,y);
+create(url,w,h,x,y);
 w:幅(number)
 h:高さ(number)
 x,y:座標(number)
@@ -67,9 +67,9 @@ callbackFunction:関数(衝突後に一度だけ呼び出される)
 
 //以下サンプルスクリプト
 
-const obj1 = create("./images/cat.jpg",100,100,10,10);
+const obj1 = create("./images/cat.jpg",100,100,100,100);
 // const obj2 = create(10,10,50,10);
-obj1.rotate = 10;
+obj1.rotate = 90;
 
 //ぶつかったらobj1を消す
 // obj1.onCollisionEnter(obj2,()=>{
@@ -79,4 +79,5 @@ obj1.rotate = 10;
 //obj1を１秒ごとにxに方向に10だけ移動させる
 setInterval(()=>{
     obj1.x+=10;
+    obj1.y+=20;
 }, 1000);

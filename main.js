@@ -1,5 +1,5 @@
 //未実装
-//マウスイベント,タッチ
+//回転させたときの当たり判定
 
 //ユーザーに触られたくないものは全てSetting内へ
 const Setting = {
@@ -40,7 +40,7 @@ class GameObject{//public?
         this.height = h;
         this.x = x;
         this.y = y;
-        this.rotate = 0;//未確認
+        this.rotate = 0;//初期値
         this.name = "";
         this.tag = "";
         this.indicate = true;//表示
@@ -48,31 +48,26 @@ class GameObject{//public?
 
     draw(){
         if(this.indicate){
-            // Setting.ctx.fillStyle = "white";
-            // Setting.ctx.rotate(this.rotate * Math.PI / 180);//未確認
+            // Setting.ctx.rotate(this.rotate * Math.PI / 180);
 
             // //issue 動かしたら変な方向に進む
             // Setting.ctx.save();
             // Setting.ctx.translate(this.x, this.y);// 回転の中心に原点を移動する
             // Setting.ctx.rotate(this.rotate * Math.PI/180);// canvasを回転する
             // // ctx.drawImage(this, -(this.width/2), -(this.height/2));// 画像サイズの半分だけずらして画像を描画する
-            
-            // Setting.ctx.fillRect(this.x, this.y, -(this.width), -(this.height));//四角を描く
             // Setting.ctx.restore();// コンテキストを元に戻す
 
             // Setting.ctx.translate( Setting.canvas.width/2, Setting.canvas.height/2 ) ;
             // Setting.ctx.rotate( this.rotate * Math.PI / 180 ) ;
             // Setting.ctx.translate( -Setting.canvas.width/2, -Setting.canvas.height/2 ) ;
             // Setting.ctx.translate(-(this.width/2), -(this.height/2));
-            // Setting.ctx.fillRect(this.x, this.y, this.width, this.height);//四角を描く
             // Setting.ctx.restore();
 
 
             const img = new Image();
             img.src = this.url;
-            // img.onload = ()=>{
-                Setting.ctx.drawImage(img, this.x, this.y, this.width, this.height);
-            // };
+            // Setting.ctx.drawImage(img, this.x, this.y, this.width, this.height);
+            drawRotatedImage(img, this.x, this.y, this.width, this.height, this.rotate);
         }
     }
 
@@ -317,6 +312,25 @@ window.addEventListener("load",()=>{
     document.body.appendChild(elm);
 
 
-    var currentScript = (function (e) { if(e.nodeName.toLowerCase() == 'script') return e; return arguments.callee(e.lastChild) })(document);
-
 });
+
+
+/**
+ * 回転させた画像を表示する
+ * @param {object} image - Imageオブジェクト
+ * @param {number} x - 画像の中心となるX座標
+ * @param {number} y - 画像の中心となるY座標
+ * @param {number} angle - 回転する角度[度]
+ */
+const drawRotatedImage = function(image, x, y, w, h, angle){
+    // コンテキストを保存する
+    Setting.ctx.save();
+    // 回転の中心に原点を移動する
+    Setting.ctx.translate(x, y);
+    // canvasを回転する
+    Setting.ctx.rotate(angle * Math.PI/180);
+    // 画像サイズの半分だけずらして画像を描画する
+    Setting.ctx.drawImage(image, 0, -h ,w,h);
+    // コンテキストを元に戻す
+    Setting.ctx.restore();
+}
