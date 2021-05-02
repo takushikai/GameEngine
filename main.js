@@ -70,9 +70,9 @@ class GameObject{//public?
 
             const img = new Image();
             img.src = this.url;
-            img.onload = ()=>{
+            // img.onload = ()=>{
                 Setting.ctx.drawImage(img, this.x, this.y, this.width, this.height);
-            };
+            // };
         }
     }
 
