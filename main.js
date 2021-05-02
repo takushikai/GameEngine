@@ -20,6 +20,7 @@ const Setting = {
         requestAnimationFrame(Setting.update);//フレームごとに
 
         Setting.ctx.clearRect(0, 0, Setting.canvas.width, Setting.canvas.height);//画面をクリア(前の画面描画を削除)
+        
         for(let i=0; i<Setting.GameObjects.length; i++){
             Setting.GameObjects[i].draw();
         }
@@ -47,8 +48,21 @@ class GameObject{//public?
     draw(){
         if(this.indicate){
             Setting.ctx.fillStyle = "white";
-            Setting.ctx.rotate(this.rotate * Math.PI / 180);//未確認
-            Setting.ctx.fillRect(this.x, this.y, this.width, this.height);
+            // Setting.ctx.rotate(this.rotate * Math.PI / 180);//未確認
+
+            // //issue 動かしたら変な方向に進む
+            // Setting.ctx.save();
+            // Setting.ctx.translate(this.x, this.y);// 回転の中心に原点を移動する
+            // Setting.ctx.rotate(this.rotate * Math.PI/180);// canvasを回転する
+            // // ctx.drawImage(this, -(this.width/2), -(this.height/2));// 画像サイズの半分だけずらして画像を描画する
+            
+            // Setting.ctx.fillRect(this.x, this.y, -(this.width), -(this.height));//四角を描く
+            // Setting.ctx.restore();// コンテキストを元に戻す
+
+            Setting.ctx.translate( Setting.canvas.width/2, Setting.canvas.height/2 ) ;
+            Setting.ctx.rotate( 50 * Math.PI / 180 ) ;
+            Setting.ctx.translate( -Setting.canvas.width/2, -Setting.canvas.height/2 ) ;
+            Setting.ctx.fillRect(this.x, this.y, this.width, this.height);//四角を描く
         }
     }
 
@@ -295,6 +309,4 @@ window.addEventListener("load",()=>{
 
     var currentScript = (function (e) { if(e.nodeName.toLowerCase() == 'script') return e; return arguments.callee(e.lastChild) })(document);
 
-    
-    console.log(toString(currentScript));
 });
