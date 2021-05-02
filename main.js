@@ -31,6 +31,7 @@ const Setting = {
 }
 
 
+
 class GameObject{//public?
     constructor(w, h, x, y){
         this.width = w;
@@ -51,6 +52,7 @@ class GameObject{//public?
         }
     }
 
+
     onClick(callbackfunc){
         Setting.canvas.addEventListener("click",(event)=>{
             Setting.forEachFrame.push(()=>{
@@ -68,6 +70,128 @@ class GameObject{//public?
             });
         });
     }
+
+    onDoubleClick(callbackfunc){
+        Setting.canvas.addEventListener("dblclick",(event)=>{
+            Setting.forEachFrame.push(()=>{
+                if
+                (
+                    this.indicate &&//表示されていて
+                    //対象の範囲内なら
+                    event.offsetX >= this.x &&
+                    event.offsetX <= this.x+this.width &&
+                    event.offsetY >= this.y &&
+                    event.offsetY <= this.y+this.height
+                ){
+                    callbackfunc();
+                }
+            });
+        });
+    }
+
+    onMousedown(callbackfunc){
+        Setting.canvas.addEventListener("mousedown",(event)=>{
+            Setting.forEachFrame.push(()=>{
+                if
+                (
+                    this.indicate &&//表示されていて
+                    //対象の範囲内なら
+                    event.offsetX >= this.x &&
+                    event.offsetX <= this.x+this.width &&
+                    event.offsetY >= this.y &&
+                    event.offsetY <= this.y+this.height
+                ){
+                    callbackfunc();
+                }
+            });
+        });
+
+        Setting.canvas.addEventListener("touchstart",(event)=>{
+            Setting.forEachFrame.push(()=>{
+                if
+                (
+                    this.indicate &&//表示されていて
+                    //対象の範囲内なら
+                    event.touches[0].offsetX >= this.x &&
+                    event.touches[0].offsetX <= this.x+this.width &&
+                    event.touches[0].offsetY >= this.y &&
+                    event.touches[0].offsetY <= this.y+this.height
+                ){
+                    callbackfunc();
+                }
+            });
+        });
+    }
+
+    onMouseUp(callbackfunc){
+        Setting.canvas.addEventListener("mouseup",(event)=>{
+            Setting.forEachFrame.push(()=>{
+                if
+                (
+                    this.indicate &&//表示されていて
+                    //対象の範囲内なら
+                    event.offsetX >= this.x &&
+                    event.offsetX <= this.x+this.width &&
+                    event.offsetY >= this.y &&
+                    event.offsetY <= this.y+this.height
+                ){
+                    callbackfunc();
+                }
+            });
+        });
+
+        Setting.canvas.addEventListener("touchend",(event)=>{
+            Setting.forEachFrame.push(()=>{
+                if
+                (
+                    this.indicate &&//表示されていて
+                    //対象の範囲内なら
+                    event.touches[0].offsetX >= this.x &&
+                    event.touches[0].offsetX <= this.x+this.width &&
+                    event.touches[0].offsetY >= this.y &&
+                    event.touches[0].offsetY <= this.y+this.height
+                ){
+                    callbackfunc();
+                }
+            });
+        });
+    }
+
+    onMouseMove(callbackfunc){
+        Setting.canvas.addEventListener("mousemove",(event)=>{
+            Setting.forEachFrame.push(()=>{
+                if
+                (
+                    this.indicate &&//表示されていて
+                    //対象の範囲内なら
+                    event.offsetX >= this.x &&
+                    event.offsetX <= this.x+this.width &&
+                    event.offsetY >= this.y &&
+                    event.offsetY <= this.y+this.height
+                ){
+                    callbackfunc();
+                }
+            });
+        });
+
+        Setting.canvas.addEventListener("touchmove",(event)=>{
+            Setting.forEachFrame.push(()=>{
+                if
+                (
+                    this.indicate &&//表示されていて
+                    //対象の範囲内なら
+                    event.touches[0].offsetX >= this.x &&
+                    event.touches[0].offsetX <= this.x+this.width &&
+                    event.touches[0].offsetY >= this.y &&
+                    event.touches[0].offsetY <= this.y+this.height
+                ){
+                    callbackfunc();
+                }
+            });
+        });
+    }    
+
+
 
     onCollisionEnter(target,callbackfunc){
         let collisionStarted = false;
@@ -109,6 +233,7 @@ class GameObject{//public?
         });
     }
 }
+
 
 
 function create(w,h,x,y){//public
