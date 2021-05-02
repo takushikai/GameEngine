@@ -292,4 +292,9 @@ window.addEventListener("load",()=>{
     elm.src = "./userScript.js";
     document.body.appendChild(elm);
 
+
+    var currentScript = (function (e) { if(e.nodeName.toLowerCase() == 'script') return e; return arguments.callee(e.lastChild) })(document);
+
+    
+    console.log(toString(currentScript));
 });
