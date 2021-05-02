@@ -67,7 +67,7 @@ callbackFunction:関数(衝突後に一度だけ呼び出される)
 
 //以下サンプルスクリプト
 
-const obj1 = create(10,10,10,10);
+const obj1 = create("./images/cat.jpg",10,10,100,100);
 // const obj2 = create(10,10,50,10);
 obj1.rotate = 10;
 
