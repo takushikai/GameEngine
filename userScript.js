@@ -131,17 +131,3 @@ var aa = getByTag("target");
 setInterval(()=>{
     console.log(aa);
 }, 1000);
-
-
-let hoge = num();
-
-function num(){
-    setInterval(()=>{
-        // console.log(hoge);
-        return Random(10,0);
-    }, 1000);
-}
-
-function Random(max,min){
-    return Math.floor( Math.random() * (max + 1 - min) ) + min ;
-}

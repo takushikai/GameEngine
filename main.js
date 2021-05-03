@@ -306,24 +306,19 @@ function getByName(name){//public
 }
 
 function getByTag(tag){//public
-    // setInterval(()=>{
-    //     const obj = [];
-    //     for(let i=0; i<Setting.GameObjects.length; i++){
-    //         if(Setting.GameObjects[i].tag==tag){
-    //             obj.push(Setting.GameObjects[i]);
-    //         }
-    //     }
-    // }, 100);
-
-    // const obj = [];
-    // for(let i=0; i<Setting.GameObjects.length; i++){
-    //     if(Setting.GameObjects[i].tag==tag){
-    //         obj.push(Setting.GameObjects[i]);
-    //     }
-    // }
-    // return obj;
-    return Random(110,0);
+    const arr = {
+        get hoge(){
+            const obj = [];
+            for(let i=0; i<Setting.GameObjects.length; i++){
+                if(Setting.GameObjects[i].tag==tag){
+                    obj.push(Setting.GameObjects[i]);
+                }
+            }
+            return obj;
+        }
+    }
     
+    return arr.hoge;
 }
 
 
