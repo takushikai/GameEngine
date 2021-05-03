@@ -68,7 +68,7 @@ callbackFunction:関数(衝突後に一度だけ呼び出される)
 //以下サンプルスクリプト
 
 const obj1 = create("./images/cat.jpg",100,100,0,0);
-const obj2 = create("./images/cat.jpg",100,100,300,300);
+const me = create("./images/cat.jpg",100,100,300,300);
 // obj1.rotate = 90;
 
 //ぶつかったらobj1を消す
@@ -82,3 +82,32 @@ setInterval(()=>{
     obj1.y+=15;
     obj1.rotate+=45;
 }, 100);
+
+// me.onCollisionEnter(obj1,()=>{
+//     obj1.indicate = false;
+// });
+
+window.addEventListener("keypress",(e)=>{
+    if(e.key=="s"){
+        me.x+=10;
+    }
+    else if(e.key=="a"){
+        me.x-=10;
+    }
+    if(e.key=="Enter"){
+        let tama = create("./images/cat.jpg",20,20,me.x,me.y);
+        tama.tag = "tama";
+        
+        setInterval(()=>{
+            tama.x-=15;
+            tama.rotate+=90;
+        }, 10);
+    }
+});
+
+let tamas = getByTag("tama");
+
+obj1.onCollisionEnter(tamas,()=>{
+        obj1.indicate = false;
+    }
+);

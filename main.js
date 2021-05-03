@@ -169,7 +169,7 @@ class GameObject{//public?
         });
     }
 
-    onMouseMove(callbackfunc){
+    onMouseMove(callbackfunc){//issue
         Setting.canvas.addEventListener("mousemove",(event)=>{
             Setting.forEachFrame.push(()=>{
                 if
@@ -206,20 +206,42 @@ class GameObject{//public?
 
 
     onCollisionEnter(target,callbackfunc){
-        let collisionStarted = false;
-        Setting.forEachFrame.push(()=>{//各フレームごとに実行
-            if(this.indicate){//表示されていて
-                if(target!=undefined && collision(this,target)){
-                    if(!collisionStarted){
-                        callbackfunc();
-                        collisionStarted = true;
+        console.log(Array.isArray(target));
+        if(!Array.isArray(target)){
+            let collisionStarted = false;
+            Setting.forEachFrame.push(()=>{//各フレームごとに実行
+                if(this.indicate){//表示されていて
+                    if(target!=undefined && collision(this,target)){
+                        if(!collisionStarted){
+                            callbackfunc();
+                            collisionStarted = true;
+                        }
+                    }
+                    else if(!collision(this,target)&&collisionStarted){//次の衝突に備える
+                        collisionStarted = false;
                     }
                 }
-                else if(!collision(this,target)&&collisionStarted){//次の衝突に備える
-                    collisionStarted = false;
-                }
+            });
+        }
+        else if(Array.isArray(target)){//だめ
+            for(let i=0; i<target.length; i++){
+                let collisionStarted = false;
+                Setting.forEachFrame.push(()=>{//各フレームごとに実行
+                    if(this.indicate){//表示されていて
+                        if(target[i]!=undefined && collision(this,target[i])){
+                            if(!collisionStarted){
+                                callbackfunc();
+                                collisionStarted = true;
+                            }
+                        }
+                        else if(!collision(this,target[i])&&collisionStarted){//次の衝突に備える
+                            collisionStarted = false;
+                        }
+                    }
+                });
             }
-        });
+            
+        }
     }
 
     onCollisionStay(target,callbackfunc){
@@ -296,17 +318,7 @@ function collision(gameObject1,gameObject2){//public?
     }
 
 
-    // 線分abと、線分cdが交錯しているかどうかの判定。
-    var judgeIentersected = function(ax, ay, bx, by, cx, cy, dx, dy) {
-    var ta = (cx - dx) * (ay - cy) + (cy - dy) * (cx - ax);
-    var tb = (cx - dx) * (by - cy) + (cy - dy) * (cx - bx);
-    var tc = (ax - bx) * (cy - ay) + (ay - by) * (ax - cx);
-    var td = (ax - bx) * (dy - ay) + (ay - by) * (ax - dx);
 
-    return tc * td < 0 && ta * tb < 0;// return tc * td <= 0 && ta * tb <= 0; // 端点を含む場合
-    };
-
-    
 }
 
 
@@ -321,3 +333,12 @@ window.addEventListener("load",()=>{
 });
 
 
+// 線分abと、線分cdが交錯しているかどうかの判定。
+var judgeIentersected = function(ax, ay, bx, by, cx, cy, dx, dy) {
+    var ta = (cx - dx) * (ay - cy) + (cy - dy) * (cx - ax);
+    var tb = (cx - dx) * (by - cy) + (cy - dy) * (cx - bx);
+    var tc = (ax - bx) * (cy - ay) + (ay - by) * (ax - cx);
+    var td = (ax - bx) * (dy - ay) + (ay - by) * (ax - dx);
+
+    return (tc * td < 0 && ta * tb < 0); // return tc * td <= 0 && ta * tb <= 0; // 端点を含む場合
+};
