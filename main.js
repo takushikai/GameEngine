@@ -206,42 +206,20 @@ class GameObject{//public?
 
 
     onCollisionEnter(target,callbackfunc){
-        console.log(Array.isArray(target));
-        if(!Array.isArray(target)){
-            let collisionStarted = false;
-            Setting.forEachFrame.push(()=>{//各フレームごとに実行
-                if(this.indicate){//表示されていて
-                    if(target!=undefined && collision(this,target)){
-                        if(!collisionStarted){
-                            callbackfunc();
-                            collisionStarted = true;
-                        }
-                    }
-                    else if(!collision(this,target)&&collisionStarted){//次の衝突に備える
-                        collisionStarted = false;
+        let collisionStarted = false;
+        Setting.forEachFrame.push(()=>{//各フレームごとに実行
+            if(this.indicate){//表示されていて
+                if(target!=undefined && collision(this,target)){
+                    if(!collisionStarted){
+                        callbackfunc();
+                        collisionStarted = true;
                     }
                 }
-            });
-        }
-        else if(Array.isArray(target)){//だめ
-            for(let i=0; i<target.length; i++){
-                let collisionStarted = false;
-                Setting.forEachFrame.push(()=>{//各フレームごとに実行
-                    if(this.indicate){//表示されていて
-                        if(target[i]!=undefined && collision(this,target[i])){
-                            if(!collisionStarted){
-                                callbackfunc();
-                                collisionStarted = true;
-                            }
-                        }
-                        else if(!collision(this,target[i])&&collisionStarted){//次の衝突に備える
-                            collisionStarted = false;
-                        }
-                    }
-                });
+                else if(!collision(this,target)&&collisionStarted){//次の衝突に備える
+                    collisionStarted = false;
+                }
             }
-            
-        }
+        });
     }
 
     onCollisionStay(target,callbackfunc){

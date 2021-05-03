@@ -67,24 +67,24 @@ callbackFunction:関数(衝突後に一度だけ呼び出される)
 
 //以下サンプルスクリプト
 
-const obj1 = create("./images/cat.jpg",100,100,0,0);
+const target = create("./images/cat.jpg",100,100,0,0);
 const me = create("./images/cat.jpg",100,100,300,300);
-// obj1.rotate = 90;
+// target.rotate = 90;
 
-//ぶつかったらobj1を消す
-// obj1.onCollisionEnter(obj2,()=>{
-//     // obj1.indicate = false;
+//ぶつかったらtargetを消す
+// target.onCollisionEnter(obj2,()=>{
+//     // target.indicate = false;
 // });
 
-//obj1を１秒ごとにxに方向に10だけ移動させる
+//targetを１秒ごとにxに方向に10だけ移動させる
 setInterval(()=>{
-    obj1.x+=10;
-    obj1.y+=15;
-    obj1.rotate+=45;
+    target.x+=10;
+    target.y+=15;
+    target.rotate+=45;
 }, 100);
 
-// me.onCollisionEnter(obj1,()=>{
-//     obj1.indicate = false;
+// me.onCollisionEnter(target,()=>{
+//     target.indicate = false;
 // });
 
 window.addEventListener("keypress",(e)=>{
@@ -96,18 +96,19 @@ window.addEventListener("keypress",(e)=>{
     }
     if(e.key=="Enter"){
         let tama = create("./images/cat.jpg",20,20,me.x,me.y);
-        tama.tag = "tama";
+        // tama.tag = "tama";
+        tama.onCollisionEnter(target,()=>{
+            target.indicate = false;
+        })
+
         
         setInterval(()=>{
-            tama.x-=15;
+            // tama.x-=15;
+            tama.y-=15;
             tama.rotate+=90;
         }, 10);
     }
 });
 
-let tamas = getByTag("tama");
 
-obj1.onCollisionEnter(tamas,()=>{
-        obj1.indicate = false;
-    }
-);
+
