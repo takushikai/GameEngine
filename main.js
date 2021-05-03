@@ -48,33 +48,9 @@ class GameObject{//public?
 
     draw(){
         if(this.indicate){
-            // Setting.ctx.rotate(this.rotate * Math.PI / 180);
-
-            // //issue 動かしたら変な方向に進む
-            // Setting.ctx.save();
-            // Setting.ctx.translate(this.x, this.y);// 回転の中心に原点を移動する
-            // Setting.ctx.rotate(this.rotate * Math.PI/180);// canvasを回転する
-            // // ctx.drawImage(this, -(this.width/2), -(this.height/2));// 画像サイズの半分だけずらして画像を描画する
-            // Setting.ctx.restore();// コンテキストを元に戻す
-
-            // Setting.ctx.translate( Setting.canvas.width/2, Setting.canvas.height/2 ) ;
-            // Setting.ctx.rotate( this.rotate * Math.PI / 180 ) ;
-            // Setting.ctx.translate( -Setting.canvas.width/2, -Setting.canvas.height/2 ) ;
-            // Setting.ctx.translate(-(this.width/2), -(this.height/2));
-            // Setting.ctx.restore();
-
-
             const img = new Image();
             img.src = this.url;
-            // drawRotatedImage(img, this.x, this.y, this.width, this.height, this.rotate);
 
-            /**
-             * 回転させた画像を表示する
-             * @param {object} image - Imageオブジェクト
-             * @param {number} x - 画像の中心となるX座標
-             * @param {number} y - 画像の中心となるY座標
-             * @param {number} angle - 回転する角度[度]
-             */
             // コンテキストを保存する
             Setting.ctx.save();
             // 回転の中心に原点を移動する
