@@ -69,7 +69,7 @@ callbackFunction:関数(衝突後に一度だけ呼び出される)
 
 const obj1 = create("./images/cat.jpg",100,100,100,100);
 // const obj2 = create(10,10,50,10);
-obj1.rotate = 90;
+// obj1.rotate = 90;
 
 //ぶつかったらobj1を消す
 // obj1.onCollisionEnter(obj2,()=>{
@@ -79,5 +79,5 @@ obj1.rotate = 90;
 //obj1を１秒ごとにxに方向に10だけ移動させる
 setInterval(()=>{
     obj1.x+=10;
-    obj1.y+=20;
+    obj1.rotate+=90;
 }, 1000);

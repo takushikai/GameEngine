@@ -66,8 +66,25 @@ class GameObject{//public?
 
             const img = new Image();
             img.src = this.url;
-            // Setting.ctx.drawImage(img, this.x, this.y, this.width, this.height);
-            drawRotatedImage(img, this.x, this.y, this.width, this.height, this.rotate);
+            // drawRotatedImage(img, this.x, this.y, this.width, this.height, this.rotate);
+
+            /**
+             * 回転させた画像を表示する
+             * @param {object} image - Imageオブジェクト
+             * @param {number} x - 画像の中心となるX座標
+             * @param {number} y - 画像の中心となるY座標
+             * @param {number} angle - 回転する角度[度]
+             */
+            // コンテキストを保存する
+            Setting.ctx.save();
+            // 回転の中心に原点を移動する
+            Setting.ctx.translate(this.x+(this.width/2), this.y+(this.height/2));
+            // canvasを回転する
+            Setting.ctx.rotate(this.rotate * Math.PI/180);
+            // 画像サイズの半分だけずらして画像を描画する
+            Setting.ctx.drawImage(img, -(this.width/2), -(this.height/2) ,this.width,this.height);
+            // コンテキストを元に戻す
+            Setting.ctx.restore();
         }
     }
 
@@ -315,22 +332,16 @@ window.addEventListener("load",()=>{
 });
 
 
-/**
- * 回転させた画像を表示する
- * @param {object} image - Imageオブジェクト
- * @param {number} x - 画像の中心となるX座標
- * @param {number} y - 画像の中心となるY座標
- * @param {number} angle - 回転する角度[度]
- */
-const drawRotatedImage = function(image, x, y, w, h, angle){
-    // コンテキストを保存する
-    Setting.ctx.save();
-    // 回転の中心に原点を移動する
-    Setting.ctx.translate(x, y);
-    // canvasを回転する
-    Setting.ctx.rotate(angle * Math.PI/180);
-    // 画像サイズの半分だけずらして画像を描画する
-    Setting.ctx.drawImage(image, 0, -h ,w,h);
-    // コンテキストを元に戻す
-    Setting.ctx.restore();
-}
+
+// const drawRotatedImage = function(image, x, y, w, h, angle){
+//     // コンテキストを保存する
+//     Setting.ctx.save();
+//     // 回転の中心に原点を移動する
+//     Setting.ctx.translate(x, y);
+//     // canvasを回転する
+//     Setting.ctx.rotate(angle * Math.PI/180);
+//     // 画像サイズの半分だけずらして画像を描画する
+//     Setting.ctx.drawImage(image, 0, -h ,w,h);
+//     // コンテキストを元に戻す
+//     Setting.ctx.restore();
+// }
