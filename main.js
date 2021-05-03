@@ -294,7 +294,21 @@ function collision(gameObject1,gameObject2){//public?
     {
         return false;
     }
+
+
+    // 線分abと、線分cdが交錯しているかどうかの判定。
+    var judgeIentersected = function(ax, ay, bx, by, cx, cy, dx, dy) {
+    var ta = (cx - dx) * (ay - cy) + (cy - dy) * (cx - ax);
+    var tb = (cx - dx) * (by - cy) + (cy - dy) * (cx - bx);
+    var tc = (ax - bx) * (cy - ay) + (ay - by) * (ax - cx);
+    var td = (ax - bx) * (dy - ay) + (ay - by) * (ax - dx);
+
+    return tc * td < 0 && ta * tb < 0;// return tc * td <= 0 && ta * tb <= 0; // 端点を含む場合
+    };
+
+    
 }
+
 
 window.addEventListener("load",()=>{
     Setting.init();
