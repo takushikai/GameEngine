@@ -45,6 +45,40 @@ class GameObject{//public?
         this.tag = "";
         this.indicate = true;//表示
 
+        this.targets = {
+            onClick:{
+                callbackfunc:undefined
+            },
+            onDoubleClick:{
+                callbackfunc:undefined
+            },
+            onMousedown:{
+                callbackfunc:undefined
+            },
+            onMouseUp:{
+                callbackfunc:undefined
+            },
+            onMouseMove:{
+                callbackfunc:undefined
+            },
+            onCollisionEnter:{
+                target:undefined,
+                callbackfunc:undefined
+            },
+            onCollisionStay:{
+                target:undefined,
+                callbackfunc:undefined
+            },
+            onCollisionExit:{
+                target:undefined,
+                callbackfunc:undefined
+            },
+            onFrameOut:{
+                callbackfunc:undefined
+            }
+            
+
+        };
         Setting.GameObjects.push(this);
     }
 
@@ -208,6 +242,11 @@ class GameObject{//public?
 
 
     onCollisionEnter(target,callbackfunc){
+        this.targets.onCollisionEnter = {
+            target: target,
+            callbackfunc: callbackfunc
+        }
+        
         let collisionStarted = false;
         Setting.forEachFrame.push(()=>{//各フレームごとに実行
             if(this.indicate){//表示されていて
@@ -246,6 +285,14 @@ class GameObject{//public?
             }
         });
     }
+
+    clone(w,h,x,y){
+        const obj = new GameObject(this.url,w,h,x,y);
+        // obj.onCollisionEnter(this.targets.onCollisionEnter.target,this.targets.onCollisionEnter.callbackfunc);
+        return obj;
+    }
+
+    onFrameOut(){}//これからつくる
 }
 
 
@@ -259,14 +306,24 @@ function getByName(name){//public
 }
 
 function getByTag(tag){//public
-    const obj = [];
-    for(let i=0; i<Setting.GameObjects.length; i++){
-        if(Setting.GameObjects[i].tag==tag){
-            obj.push(Setting.GameObjects[i]);
-        }
-    }
+    // setInterval(()=>{
+    //     const obj = [];
+    //     for(let i=0; i<Setting.GameObjects.length; i++){
+    //         if(Setting.GameObjects[i].tag==tag){
+    //             obj.push(Setting.GameObjects[i]);
+    //         }
+    //     }
+    // }, 100);
 
-    return obj;
+    // const obj = [];
+    // for(let i=0; i<Setting.GameObjects.length; i++){
+    //     if(Setting.GameObjects[i].tag==tag){
+    //         obj.push(Setting.GameObjects[i]);
+    //     }
+    // }
+    // return obj;
+    return Random(110,0);
+    
 }
 
 
@@ -290,8 +347,6 @@ function collision(gameObject1,gameObject2){//public?
         return false;
     }
 
-
-
 }
 
 
@@ -304,6 +359,10 @@ window.addEventListener("load",()=>{
     document.body.appendChild(elm);
 
 });
+
+function Random(max,min){
+    return Math.floor( Math.random() * (max + 1 - min) ) + min ;
+}
 
 
 // 線分abと、線分cdが交錯しているかどうかの判定。

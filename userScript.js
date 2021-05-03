@@ -69,7 +69,7 @@ callbackFunction:関数(衝突後に一度だけ呼び出される)
 
 const target = new GameObject("./images/cat.jpg",100,100,0,0);
 const me = new GameObject("./images/cat.jpg",100,100,300,300);
-// target.rotate = 90;
+
 
 //ぶつかったらtargetを消す
 // target.onCollisionEnter(obj2,()=>{
@@ -78,22 +78,38 @@ const me = new GameObject("./images/cat.jpg",100,100,300,300);
 
 //targetを１秒ごとにxに方向に10だけ移動させる
 setInterval(()=>{
+    const obj = new GameObject("./images/cat.jpg",100,100,Random(100,0),0);
+    obj.tag = "target";
     target.x+=10;
     target.y+=15;
     target.rotate+=45;
-}, 100);
+}, 1000);
 
 // me.onCollisionEnter(target,()=>{
 //     target.indicate = false;
 // });
+me.onCollisionEnter(target,()=>{});
+target.clone(100,100,100,100);
 
-window.addEventListener("keypress",(e)=>{
-    if(e.key=="s"){
+window.addEventListener("keydown",(e)=>{
+
+    if(e.key=="ArrowRight"){
+        e.preventDefault();
         me.x+=10;
     }
-    else if(e.key=="a"){
+    else if(e.key=="ArrowLeft"){
+        e.preventDefault();
         me.x-=10;
     }
+    else if(e.key=="ArrowUp"){
+        e.preventDefault();
+        me.y-=10;
+    }
+    else if(e.key=="ArrowDown"){
+        e.preventDefault();
+        me.y+=10;
+    }
+
     if(e.key=="Enter"){
         let tama = new GameObject("./images/cat.jpg",20,20,me.x,me.y);
         // tama.tag = "tama";
@@ -110,5 +126,22 @@ window.addEventListener("keypress",(e)=>{
     }
 });
 
+var aa = getByTag("target");
+
+setInterval(()=>{
+    console.log(aa);
+}, 1000);
 
 
+let hoge = num();
+
+function num(){
+    setInterval(()=>{
+        // console.log(hoge);
+        return Random(10,0);
+    }, 1000);
+}
+
+function Random(max,min){
+    return Math.floor( Math.random() * (max + 1 - min) ) + min ;
+}
