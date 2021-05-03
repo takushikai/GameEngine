@@ -68,7 +68,7 @@ callbackFunction:関数(衝突後に一度だけ呼び出される)
 //以下サンプルスクリプト
 
 const obj1 = create("./images/cat.jpg",100,100,100,100);
-const obj2 = create("./images/cat.jpg",100,100,300,300);;
+const obj2 = create("./images/cat.jpg",100,100,300,300);
 // obj1.rotate = 90;
 
 //ぶつかったらobj1を消す
@@ -79,5 +79,5 @@ const obj2 = create("./images/cat.jpg",100,100,300,300);;
 //obj1を１秒ごとにxに方向に10だけ移動させる
 setInterval(()=>{
     obj1.x+=10;
-    obj1.rotate+=90;
-}, 1000);
+    obj1.rotate+=45;
+}, 100);

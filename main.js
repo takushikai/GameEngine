@@ -304,20 +304,6 @@ window.addEventListener("load",()=>{
     elm.src = "./userScript.js";
     document.body.appendChild(elm);
 
-
 });
 
 
-
-// const drawRotatedImage = function(image, x, y, w, h, angle){
-//     // コンテキストを保存する
-//     Setting.ctx.save();
-//     // 回転の中心に原点を移動する
-//     Setting.ctx.translate(x, y);
-//     // canvasを回転する
-//     Setting.ctx.rotate(angle * Math.PI/180);
-//     // 画像サイズの半分だけずらして画像を描画する
-//     Setting.ctx.drawImage(image, 0, -h ,w,h);
-//     // コンテキストを元に戻す
-//     Setting.ctx.restore();
-// }
