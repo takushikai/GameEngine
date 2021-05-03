@@ -11,7 +11,7 @@ Setting.canvas.width = 値;
 Setting.canvas.height = 値;
 
 【ゲームオブジェクトを作る】
-create(url,w,h,x,y);
+new GameObject(url,w,h,x,y);
 w:幅(number)
 h:高さ(number)
 x,y:座標(number)
@@ -67,8 +67,8 @@ callbackFunction:関数(衝突後に一度だけ呼び出される)
 
 //以下サンプルスクリプト
 
-const target = create("./images/cat.jpg",100,100,0,0);
-const me = create("./images/cat.jpg",100,100,300,300);
+const target = new GameObject("./images/cat.jpg",100,100,0,0);
+const me = new GameObject("./images/cat.jpg",100,100,300,300);
 // target.rotate = 90;
 
 //ぶつかったらtargetを消す
@@ -95,7 +95,7 @@ window.addEventListener("keypress",(e)=>{
         me.x-=10;
     }
     if(e.key=="Enter"){
-        let tama = create("./images/cat.jpg",20,20,me.x,me.y);
+        let tama = new GameObject("./images/cat.jpg",20,20,me.x,me.y);
         // tama.tag = "tama";
         tama.onCollisionEnter(target,()=>{
             target.indicate = false;

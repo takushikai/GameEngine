@@ -44,6 +44,8 @@ class GameObject{//public?
         this.name = "";
         this.tag = "";
         this.indicate = true;//表示
+
+        Setting.GameObjects.push(this);
     }
 
     draw(){
@@ -248,13 +250,6 @@ class GameObject{//public?
 
 
 
-function create(url,w,h,x,y){//public
-    const obj = new GameObject(url,w,h,x,y);
-    Setting.GameObjects.push(obj);
-    return obj;
-}
-
-
 function getByName(name){//public
     for(let i=0; i<Setting.GameObjects.length; i++){
         if(Setting.GameObjects[i].name==name){
@@ -312,6 +307,7 @@ window.addEventListener("load",()=>{
 
 
 // 線分abと、線分cdが交錯しているかどうかの判定。
+//使ってない
 var judgeIentersected = function(ax, ay, bx, by, cx, cy, dx, dy) {
     var ta = (cx - dx) * (ay - cy) + (cy - dy) * (cx - ax);
     var tb = (cx - dx) * (by - cy) + (cy - dy) * (cx - bx);
