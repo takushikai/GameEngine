@@ -242,25 +242,51 @@ class GameObject{//public?
 
 
     onCollisionEnter(target,callbackfunc){
-        this.targets.onCollisionEnter = {
-            target: target,
-            callbackfunc: callbackfunc
-        }
+        console.log(typeof(target));
         
-        let collisionStarted = false;
-        Setting.forEachFrame.push(()=>{//各フレームごとに実行
-            if(this.indicate){//表示されていて
-                if(target!=undefined && collision(this,target)){
-                    if(!collisionStarted){
-                        callbackfunc();
-                        collisionStarted = true;
-                    }
-                }
-                else if(!collision(this,target)&&collisionStarted){//次の衝突に備える
-                    collisionStarted = false;
+        if(typeof(target)=="string"){
+
+            for(let i=0; i<Setting.GameObjects.length; i++){
+                console.log(Setting.GameObjects[i]);
+                if(Setting.GameObjects[i].tag==target){//target:tag
+
+                    let collisionStarted = false;
+                    Setting.forEachFrame.push(()=>{//各フレームごとに実行
+                        if(this.indicate){//表示されていて
+                            if(Setting.GameObjects[i]!=undefined && collision(this,Setting.GameObjects[i])){
+                                console.log(Setting.GameObjects[i]);
+                                if(!collisionStarted){
+                                    callbackfunc();
+                                    collisionStarted = true;
+                                }
+                            }
+                            // else if(!collision(this,Setting.GameObjects[i])&&collisionStarted){//次の衝突に備える
+                            //     collisionStarted = false;
+                            // }
+                        }
+                    });
+
                 }
             }
-        });
+        }
+
+        else{
+            let collisionStarted = false;
+            Setting.forEachFrame.push(()=>{//各フレームごとに実行
+                if(this.indicate){//表示されていて
+                    if(target!=undefined && collision(this,target)){
+                        if(!collisionStarted){
+                            callbackfunc();
+                            collisionStarted = true;
+                        }
+                    }
+                    else if(!collision(this,target)&&collisionStarted){//次の衝突に備える
+                        collisionStarted = false;
+                    }
+                }
+            });
+        }
+        
     }
 
     onCollisionStay(target,callbackfunc){
@@ -286,7 +312,7 @@ class GameObject{//public?
         });
     }
 
-    clone(w,h,x,y){
+    clone(w,h,x,y){//ボツ？
         const obj = new GameObject(this.url,w,h,x,y);
         // obj.onCollisionEnter(this.targets.onCollisionEnter.target,this.targets.onCollisionEnter.callbackfunc);
         return obj;
@@ -306,19 +332,41 @@ function getByName(name){//public
 }
 
 function getByTag(tag){//public
-    const arr = {
-        get hoge(){
-            const obj = [];
-            for(let i=0; i<Setting.GameObjects.length; i++){
-                if(Setting.GameObjects[i].tag==tag){
-                    obj.push(Setting.GameObjects[i]);
-                }
+    // return {
+    //     obj: (function(){
+    //         const obj = [];
+    //         for(let i=0; i<Setting.GameObjects.length; i++){
+    //             if(Setting.GameObjects[i].tag==tag){
+    //                 obj.push(Setting.GameObjects[i]);
+    //             }
+    //         }
+    //         console.log("aa");
+    //         return obj;
+    //     })(),
+    //     get hoge(){
+    //         // const obj = [];
+    //         // for(let i=0; i<Setting.GameObjects.length; i++){
+    //         //     if(Setting.GameObjects[i].tag==tag){
+    //         //         obj.push(Setting.GameObjects[i]);
+    //         //     }
+    //         // }
+    //         // console.log("aa");
+    //         return this.obj;
+    //     }
+    // }
+
+    return function(){
+        const obj = [];
+        for(let i=0; i<Setting.GameObjects.length; i++){
+            if(Setting.GameObjects[i].tag==tag){
+                obj.push(Setting.GameObjects[i]);
             }
-            return obj;
         }
+        return obj;
     }
-    
-    return arr.hoge;
+
+
+
 }
 
 

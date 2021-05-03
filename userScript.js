@@ -67,7 +67,7 @@ callbackFunction:関数(衝突後に一度だけ呼び出される)
 
 //以下サンプルスクリプト
 
-const target = new GameObject("./images/cat.jpg",100,100,0,0);
+// const target = new GameObject("./images/cat.jpg",100,100,0,0);
 const me = new GameObject("./images/cat.jpg",100,100,300,300);
 
 
@@ -78,44 +78,47 @@ const me = new GameObject("./images/cat.jpg",100,100,300,300);
 
 //targetを１秒ごとにxに方向に10だけ移動させる
 setInterval(()=>{
-    const obj = new GameObject("./images/cat.jpg",100,100,Random(100,0),0);
-    obj.tag = "target";
-    target.x+=10;
-    target.y+=15;
-    target.rotate+=45;
+    const obj = new GameObject("./images/cat.jpg",100,100,Random(500,0),Random(500,0));
+    // obj.tag = "target";
+    obj.onCollisionEnter("tama",()=>{
+        obj.indicate = false;
+    });
+    // obj.x+=10;
+    // obj.y+=15;
+    // obj.rotate+=45;
 }, 1000);
 
 // me.onCollisionEnter(target,()=>{
 //     target.indicate = false;
 // });
-me.onCollisionEnter(target,()=>{});
-target.clone(100,100,100,100);
+// me.onCollisionEnter(target,()=>{});
+// target.clone(100,100,100,100);
 
 window.addEventListener("keydown",(e)=>{
 
     if(e.key=="ArrowRight"){
         e.preventDefault();
-        me.x+=10;
+        me.x+=20;
     }
     else if(e.key=="ArrowLeft"){
         e.preventDefault();
-        me.x-=10;
+        me.x-=20;
     }
     else if(e.key=="ArrowUp"){
         e.preventDefault();
-        me.y-=10;
+        me.y-=20;
     }
     else if(e.key=="ArrowDown"){
         e.preventDefault();
-        me.y+=10;
+        me.y+=20;
     }
 
     if(e.key=="Enter"){
         let tama = new GameObject("./images/cat.jpg",20,20,me.x,me.y);
-        // tama.tag = "tama";
-        tama.onCollisionEnter(target,()=>{
-            target.indicate = false;
-        })
+        tama.tag = "tama";
+        // tama.onCollisionEnter("target",()=>{
+        //     target.indicate = false;
+        // })
 
         
         setInterval(()=>{
@@ -126,8 +129,3 @@ window.addEventListener("keydown",(e)=>{
     }
 });
 
-var aa = getByTag("target");
-
-setInterval(()=>{
-    console.log(aa);
-}, 1000);
